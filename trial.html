@@ -1,11 +1,70 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Live Device Tracker</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    button { padding: 10px 15px; margin: 5px; }
+  </style>
 </head>
 <body>
-    
+
+<h2>Live Device Location Tracking</h2>
+
+<button onclick="startTracking()">Start Tracking</button>
+<button onclick="stopTracking()">Stop Tracking</button>
+
+<p id="status">Status: Not tracking</p>
+<p id="location"></p>
+
+<script>
+let watchId = null;
+
+function startTracking() {
+  if (!navigator.geolocation) {
+    document.getElementById("status").innerText =
+      "Geolocation not supported by this browser.";
+    return;
+  }
+
+  watchId = navigator.geolocation.watchPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const acc = position.coords.accuracy;
+
+      document.getElementById("status").innerText =
+        "Status: Tracking...";
+      document.getElementById("location").innerHTML =
+        `Latitude: ${lat}<br>
+         Longitude: ${lon}<br>
+         Accuracy: ${acc} meters<br>
+         <a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank">
+           View on Google Maps
+         </a>`;
+    },
+    (error) => {
+      document.getElementById("status").innerText =
+        "Error: Permission denied or location unavailable.";
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    }
+  );
+}
+
+function stopTracking() {
+  if (watchId !== null) {
+    navigator.geolocation.clearWatch(watchId);
+    watchId = null;
+    document.getElementById("status").innerText =
+      "Status: Tracking stopped";
+  }
+}
+</script>
+
 </body>
 </html>
