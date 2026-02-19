@@ -1,0 +1,85 @@
+ :root {
+    --primary-color: #00e5ff;
+    --bg-color: #242333;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+
+
+
+body {
+    /* Existing styles... */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: background 0.8s ease-in-out; /* Smooth fade effect */
+    
+    /* Overlay to darken the image for readability */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                      url('https://www.pexels.com/photo/photo-of-a-cinema-hall-14746411/');
+}
+
+/* Screen Perspective */
+.screen {
+    background-color: #fff;
+    height: 70px;
+    width: 100%;
+    margin: 15px 0;
+    transform: rotateX(-45deg);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+}
+
+.container {
+    perspective: 1000px;
+    margin-bottom: 30px;
+}
+
+/* Seats Styling */
+.seat {
+    background-color: #444451;
+    height: 12px;
+    width: 15px;
+    margin: 3px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.seat.selected { background-color: var(--primary-color); }
+.seat.occupied { background-color: #fff; }
+
+.seat:nth-of-type(2) { margin-right: 18px; }
+.seat:nth-last-of-type(2) { margin-left: 18px; }
+
+.seat:not(.occupied):hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.row { display: flex; }
+
+.showcase {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    list-style-type: none;
+}
+
+.showcase li {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.text span { color: var(--primary-color); font-weight: bold; }
